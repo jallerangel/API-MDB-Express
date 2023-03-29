@@ -9,9 +9,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/json', (req, res) => {
-  res.json('Hello World');
+  res.json({ Hello: 'World' });
 });
 
-app.listen(config.port, () =>
-  console.log(`Listening on http://localhost:${config.port}`)
-);
+app.listen(config.port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Listening on http://localhost:${config.port}`);
+});
