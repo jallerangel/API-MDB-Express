@@ -1,16 +1,9 @@
 const express = require('express');
-
 const app = express();
-
 const { config } = require('./config');
+const moviesApi = require('./routes/movies');
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
-app.get('/json', (req, res) => {
-  res.json({ Hello: 'World' });
-});
+moviesApi(app);
 
 app.listen(config.port, () => {
   // eslint-disable-next-line no-console
