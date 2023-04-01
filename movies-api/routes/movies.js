@@ -1,13 +1,16 @@
 const express = require('express');
-const { moviesMock } = require('../utils/mocks/movies');
+
+const MoviesService = require('../services/movies');
 
 function moviesApi(app) {
   const router = express.Router();
   app.use('/api/movies', router);
+  const moviesService = new MoviesService();
 
   router.get('/', async (req, res, next) => {
+    const { tags } = req.query;
     try {
-      const movies = await Promise.resolve(moviesMock);
+      const movies = await moviesService.getMovies({ tags });
       res.status(200).json({
         data: movies,
         message: 'movies listed',
@@ -18,8 +21,9 @@ function moviesApi(app) {
   });
 
   router.get('/:movieId', async (req, res, next) => {
+    const { movieId } = req.params;
     try {
-      const movies = await Promise.resolve(moviesMock[0]);
+      const movies = await moviesService.getMovie({ movieId });
       res.status(200).json({
         data: movies,
         message: 'movie retrieve',
@@ -30,8 +34,9 @@ function moviesApi(app) {
   });
 
   router.post('/', async (req, res, next) => {
+    const { body: movie } = req;
     try {
-      const movies = await Promise.resolve(moviesMock);
+      const movies = await moviesService.createMovie({ movie });
       res.status(201).json({
         data: movies,
         message: 'movie created',
@@ -42,8 +47,13 @@ function moviesApi(app) {
   });
 
   router.put('/:movieId', async (req, res, next) => {
+    const { body: movie } = req;
+    const { movieId } = req.params;
     try {
-      const updatedMovieId = await Promise.resolve(moviesMock[0].id);
+      const updatedMovieId = await moviesService.updateMovie({
+        movieId,
+        movie,
+      });
       res.status(200).json({
         data: updatedMovieId,
         message: 'movies updated',
@@ -54,8 +64,9 @@ function moviesApi(app) {
   });
 
   router.delete('/:movieId', async (req, res, next) => {
+    const { movieId } = req.params;
     try {
-      const deletedMovie = await Promise.resolve(moviesMock[0].id);
+      const deletedMovie = await moviesService.deleteMovie({ movieId });
       res.status(200).json({
         data: deletedMovie,
         message: 'movies deleted',
@@ -64,6 +75,26 @@ function moviesApi(app) {
       next(e);
     }
   });
+
+  router.patch('/:movieId', async (req, res, next) => {
+    const { movieId } = req.params;
+    const { body: moviePart } = req;
+    try {
+      const updatedMovie = await moviesService.updateMoviePart({
+        movieId,
+        moviePart,
+      });
+      res.status(200).json({
+        data: updatedMovie,
+        message: 'movie updated',
+      });
+    } catch (e) {
+      next(e);
+    }
+  });
 }
 
 module.exports = moviesApi;
+
+// La unica responsabilidad de las rutas es saber como recibe parametros y como se los entrega a los servicios, que son la logica de negocio.
+// Mientras que los servicios si saben que hacer con todos los parametros y datos y devolver la informacion que le estamos requiriendo.
