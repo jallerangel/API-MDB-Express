@@ -1,4 +1,4 @@
-function validationHandler(schema, check = 'body') {
+function validate(schema, check = 'body') {
   return false;
 }
 
