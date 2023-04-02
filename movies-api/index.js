@@ -13,17 +13,14 @@ const {
 } = require('./utils/middlewares/errorHandler');
 
 const notFoundHandler = require('./utils/middlewares/notFoundHandler');
-const whiteList = [
-  'http://localhost:8080',
-  'http://localhost:5500',
-  'https://myapp.co',
-];
+
+const whiteList = ['http://127.0.0.1:5500', 'https://myapp.co'];
 const options = {
   origin: (origin, cb) => {
-    if (whiteList.includes(origin)) {
+    if (whiteList.includes(origin) || !origin) {
       cb(null, true);
     } else {
-      cb(new Error('Access Denied'));
+      cb(new Error('Access Denied'), false);
     }
   },
 };
