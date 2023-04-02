@@ -96,5 +96,3 @@ function moviesApi(app) {
 
 module.exports = moviesApi;
 
-// La unica responsabilidad de las rutas es saber como recibe parametros y como se los entrega a los servicios, que son la logica de negocio.
-// Mientras que los servicios si saben que hacer con todos los parametros y datos y devolver la informacion que le estamos requiriendo.
