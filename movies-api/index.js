@@ -5,13 +5,11 @@ const cors = require('cors');
 const morgan = require('morgan');
 const { config } = require('./config');
 const moviesApi = require('./routes/movies.router');
-
 const {
   logErrors,
   errorHandler,
   wrapErrors,
 } = require('./utils/middlewares/errorHandler');
-
 const notFoundHandler = require('./utils/middlewares/notFoundHandler');
 
 const whiteList = ['http://127.0.0.1:5500', 'https://myapp.co'];

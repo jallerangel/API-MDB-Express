@@ -4,12 +4,18 @@ const debug = require('debug')('app:db');
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const DB_NAME = config.dbName;
+const DB_NAME_TEST = config.dbNameTest;
+const  { NODE_ENV } = process.env
 
 const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}/${DB_NAME}?retryWrites=true&w=majority`;
+const MONGO_URI_TEST = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}/${DB_NAME_TEST}?retryWrites=true&w=majority`;
+
+
+const connectionString = NODE_ENV === 'test' ? MONGO_URI_TEST : MONGO_URI
 
 class MongoLib {
   constructor() {
-    this.client = new MongoClient(MONGO_URI, {
+    this.client = new MongoClient(connectionString, {
       serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
@@ -88,6 +94,6 @@ class MongoLib {
 
     return updatedData.upsertedId || id;
   }
-}
+};
 
 module.exports = MongoLib;
