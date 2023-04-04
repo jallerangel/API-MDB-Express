@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const { config } = require('./config');
 const moviesApi = require('./routes/movies.router');
+const userMoviesApi = require('./routes/userMovies.router');
 const {
   logErrors,
   errorHandler,
@@ -34,7 +35,7 @@ app.use(morgan('dev'));
 
 // routes
 moviesApi(app);
-
+userMoviesApi(app);
 //catch 404
 app.use(notFoundHandler);
 

@@ -10,7 +10,6 @@ const  { NODE_ENV } = process.env
 const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}/${DB_NAME}?retryWrites=true&w=majority`;
 const MONGO_URI_TEST = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}/${DB_NAME_TEST}?retryWrites=true&w=majority`;
 
-
 const connectionString = NODE_ENV === 'test' ? MONGO_URI_TEST : MONGO_URI
 
 class MongoLib {

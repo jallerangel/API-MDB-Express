@@ -1,7 +1,7 @@
 const assert = require('assert');
 const proxyquire = require('proxyquire');
 const { moviesMock, MoviesServiceMocks } = require('../utils/mocks/movies');
-const testServer = require('../utils/schemas/testServer');
+const testServer = require('../utils/testServer');
 
 describe('routes - movies', () => {
   const route = proxyquire('../routes/movies.router.js', {
