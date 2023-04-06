@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "set DEBUG=* & cross-env NODE_ENV=development & nodemon index.js",
     "start": "node index.js",
-    "inspect": "DEBUG=express:* DEBUG=app:* nodemon index.js",
+    "inspect": "set DEBUG=express:* DEBUG=app:* nodemon index.js",
     "test": "mocha --exit --verbose",
     "cover": "nyc npm run test",
     "report": "nyc report --reporter=html && open coverage/index.html"
@@ -17,8 +17,11 @@
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "bcrypt": "^5.1.0",
+    "chalk": "^4.1.2",
+    "change-case": "^4.1.2",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
+    "crypto": "^1.0.1",
     "debug": "^4.3.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

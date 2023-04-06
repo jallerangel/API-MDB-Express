@@ -11,7 +11,9 @@ passport.use(
 
     try {
       const user = await usersService.getUser({ email });
+
       if (!user) return cb(boom.unauthorized(), false);
+
       if (!(await bcrypt.compare(password, user.password))) {
         return cb(boom.unauthorized(), false); //Solemos devolver solo la respuesta de que el user no esta autorizado ya que dar mucha informacion sobre un proceso de auth nos puede poner en peligro de ataques.
       }
