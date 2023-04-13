@@ -1,0 +1,27 @@
+{
+   "dependencies": {
+      "@hapi/boom": "^10.0.1",
+      "axios": "^1.3.5",
+      "cookie-parser": "^1.4.6",
+      "dotenv": "^16.0.3",
+      "express": "^4.18.2",
+      "passport": "^0.6.0",
+      "passport-http": "^0.3.0"
+   },
+   "name": "ssr-server",
+   "version": "1.0.0",
+   "main": "index.js",
+   "type": "module",
+   "devDependencies": {
+      "nodemon": "^2.0.22"
+   },
+   "scripts": {
+      "start": "node index.js",
+      "dev": "NODE_ENV=develoment nodemon index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "description": ""
+}

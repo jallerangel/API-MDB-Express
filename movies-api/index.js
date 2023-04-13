@@ -1,5 +1,4 @@
 const express = require('express');
-const debug = require('debug')('app:server');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
@@ -49,5 +48,5 @@ app.use(errorHandler);
 
 app.listen(config.port, () => {
   // eslint-disable-next-line no-console
-  debug(`Listening on http://localhost:${config.port}`);
+  console.log(`Listening on http://localhost:${config.port}`);
 });

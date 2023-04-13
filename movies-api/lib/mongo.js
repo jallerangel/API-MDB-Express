@@ -1,6 +1,5 @@
 const { MongoClient, ObjectId, ServerApiVersion } = require('mongodb');
 const { config } = require('../config');
-const debug = require('debug')('app:db');
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const DB_NAME = config.dbName;
@@ -27,10 +26,11 @@ class MongoLib {
     try {
       await this.client.connect();
       await this.client.db(this.dbName).command({ ping: 1 });
-      debug('Pinged your deployment. You successfully connected to MongoDB!');
+      // eslint-disable-next-line no-console
+      console.log('Pinged your deployment. You successfully connected to MongoDB!');
     } catch (e) {
       // eslint-disable-next-line no-console
-      debug(e);
+      console.log(e);
     }
   }
 

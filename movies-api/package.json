@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "set DEBUG=* & cross-env NODE_ENV=development & nodemon index.js",
+    "dev": "NODE_ENV=development && nodemon index.js",
     "start": "node index.js",
-    "inspect": "set DEBUG=express:* DEBUG=app:* nodemon index.js",
+    "inspect": " nodemon index.js",
     "test": "mocha --exit --verbose",
     "cover": "nyc npm run test",
     "report": "nyc report --reporter=html && open coverage/index.html"
@@ -20,7 +20,6 @@
     "chalk": "^4.1.2",
     "change-case": "^4.1.2",
     "cors": "^2.8.5",
-    "cross-env": "^7.0.3",
     "debug": "^4.3.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

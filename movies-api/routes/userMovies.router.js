@@ -2,7 +2,7 @@ const express = require('express');
 const UserMoviesService = require('../services/usersMovies');
 const validationHandler = require('../utils/middlewares/validationHandler');
 const scopesValidationHandler = require('../utils/middlewares/scopesValidationHandler');
-const { movieIdSchema } = require('../utils/schemas/movies');
+const { getDeleteMovieSchema } = require('../utils/schemas/movies');
 const { userIdSchema } = require('../utils/schemas/users');
 const { createUserMovieSchema } = require('../utils/schemas/usersMovies');
 
@@ -39,7 +39,7 @@ function userMoviesApi(app) {
     '/',
     passport.authenticate('jwt', { session: false }),
     scopesValidationHandler(['create:user-movies']),
-    validationHandler(createUserMovieSchema),
+    validationHandler(createUserMovieSchema, 'body'),
     async (req, res, next) => {
       const { body: userMovie } = req;
 
@@ -61,10 +61,9 @@ function userMoviesApi(app) {
     '/:userMovieId',
     passport.authenticate('jwt', { session: false }),
     scopesValidationHandler(['delete:user-movies']),
-    validationHandler({ userMovieId: movieIdSchema }, 'params'),
+    validationHandler(getDeleteMovieSchema, 'params'),
     async (req, res, next) => {
       const { userMovieId } = req.params;
-
       try {
         const deletedUserMoviesId = await userMoviesService.deleteUserMovie({
           userMovieId,

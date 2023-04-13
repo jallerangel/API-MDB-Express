@@ -1,7 +1,4 @@
-//DEBUG=app:* node scripts/mongo/seedUsers.js
-
 const bcrypt = require('bcrypt');
-const debug = require('debug')('app:scripts:movies.js');
 const chalk = require('chalk');
 const MongoLib = require('../../lib/mongo');
 const { config } = require('../../config');
@@ -53,12 +50,14 @@ async function seedUsers() {
     const mongoDB = new MongoLib();
     const promises = users.map(async (user) => {
       const userId = await createUser(mongoDB, user);
-      debug(chalk.cyanBright.bgBlack(`Users created with id: ${userId}`));
+      // eslint-disable-next-line no-console
+      console.log(chalk.cyanBright.bgBlack(`Users created with id: ${userId}`));
     });
     await Promise.all(promises);
     return process.exit(0);
   } catch (e) {
-    debug(chalk.red.bgBlack(e));
+    // eslint-disable-next-line no-console
+    console.log(chalk.red.bgBlack(e));
     process.exit(1);
   }
 }

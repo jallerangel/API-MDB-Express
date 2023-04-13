@@ -3,7 +3,7 @@ const passport = require('passport');
 const MoviesService = require('../services/movies');
 const {
   updateMovieSchema,
-  getMovieSchema,
+  getDeleteMovieSchema,
   createMovieSchema,
 } = require('../utils/schemas/movies');
 const validationHandler = require('../utils/middlewares/validationHandler');
@@ -44,7 +44,7 @@ function moviesApi(app) {
     '/:movieId',
     passport.authenticate('jwt', { session: false }),
     scopesValidationHandler(['read:movies']),
-    validationHandler(getMovieSchema, 'params'),
+    validationHandler(getDeleteMovieSchema, 'params'),
     async (req, res, next) => {
       cacheResponse(res, SIXTY_MINUTES_IN_SECONDS);
       const { movieId } = req.params;
@@ -83,7 +83,7 @@ function moviesApi(app) {
     '/:movieId',
     passport.authenticate('jwt', { session: false }),
     scopesValidationHandler(['update:movies']),
-    validationHandler(getMovieSchema, 'params'),
+    validationHandler(getDeleteMovieSchema, 'params'),
     validationHandler(updateMovieSchema, 'body'),
     async (req, res, next) => {
       const { body: movie } = req;
@@ -107,7 +107,7 @@ function moviesApi(app) {
     '/:movieId',
     passport.authenticate('jwt', { session: false }),
     scopesValidationHandler(['delete:movies']),
-    validationHandler(getMovieSchema, 'params'),
+    validationHandler(getDeleteMovieSchema, 'params'),
     async (req, res, next) => {
       const { movieId } = req.params;
       try {
@@ -126,7 +126,7 @@ function moviesApi(app) {
     '/:movieId',
     passport.authenticate('jwt', { session: false }),
     scopesValidationHandler(['update:movies']),
-    validationHandler(getMovieSchema, 'params'),
+    validationHandler(getDeleteMovieSchema, 'params'),
     validationHandler(updateMovieSchema, 'body'),
     async (req, res, next) => {
       const { movieId } = req.params;

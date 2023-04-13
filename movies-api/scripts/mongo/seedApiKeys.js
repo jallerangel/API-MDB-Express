@@ -1,9 +1,5 @@
-// DEBUG=app:* node scripts/mongo/seedApiKeys.js
-// set DEBUG=app:* && node scripts/mongo/seedApiKeys.js
-
 const chalk = require('chalk');
 const crypto = require('crypto');
-const debug = require('debug')('app:scripts:api-keys');
 const MongoLib = require('../../lib/mongo');
 
 const adminScopes = [
@@ -52,9 +48,11 @@ async function seedApiKeys() {
     });
 
     await Promise.all(promises);
+    // eslint-disable-next-line no-console
     console.log(chalk.green(`${promises.length} api keys have been created succesfully`)); // prettier-ignore
     return process.exit(0);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(chalk.red(error));
     process.exit(1);
   }
